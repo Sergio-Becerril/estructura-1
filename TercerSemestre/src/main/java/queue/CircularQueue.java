@@ -24,7 +24,7 @@ public class CircularQueue {
             queue[f]=value;
             f++;
             size++;
-            if(f==queue.lenght){
+            if(f==queue.length){
                 f=0;
             }
         }
@@ -37,7 +37,7 @@ public class CircularQueue {
             queue[r]=null;
             r++;
             size--;
-            if(r==queue.lenght){
+            if(r==queue.length){
                 r=0;
             }
         }
@@ -48,7 +48,7 @@ public class CircularQueue {
         Object value=null;
         if(!isEmpty()){
             int tempF=f-1;
-            tempF=tempF==-1?queue.lenght-1:tempF;
+            tempF=tempF==-1?queue.length-1:tempF;
             value=queue[tempF];
         }
         return value;
@@ -62,10 +62,17 @@ public class CircularQueue {
         String s="";
         for(int i=0; i<size; i++){
         int tempI=i+r;
-        tempI=tempI==queue.lenght-1?0:tempI;
+        tempI=tempI==queue.length-1?0:tempI;
         s+=queue[tempI]+">";
         }
         return s;
     }
     
+    //ArrayStack
+    public boolean isEmpty(){
+      return size == 0;
+   }
+   public Boolean isFull(){
+      return size == queue.length;
+   }
 }
