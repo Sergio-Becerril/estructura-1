@@ -62,7 +62,7 @@ public class CircularQueue {
         String s="";
         for(int i=0; i<size; i++){
         int tempI=i+r;
-        tempI=tempI==queue.length-1?0:tempI;
+        tempI=tempI==queue.length?0:tempI;
         s+=queue[tempI]+">";
         }
         return s;
@@ -71,8 +71,11 @@ public class CircularQueue {
     //ArrayStack
     public boolean isEmpty(){
       return size == 0;
-   }
-   public Boolean isFull(){
+    }
+    public Boolean isFull(){
       return size == queue.length;
+    }
+    public int size(){
+      return size;
    }
 }

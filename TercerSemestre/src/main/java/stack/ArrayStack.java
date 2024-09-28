@@ -23,6 +23,7 @@ public class ArrayStack {
    public boolean isEmpty(){
       return a == 0;
    }
+   //isFull
    public Boolean isFull(){
       return a == stack.length;
    }

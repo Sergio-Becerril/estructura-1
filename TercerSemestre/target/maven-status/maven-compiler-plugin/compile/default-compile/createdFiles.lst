@@ -1,9 +1,12 @@
 tests/Burbuja.class
-queue/CircularQueue.class
+tests/Array.class
 tests/Insercion.class
 com/mycompany/tercersemestre/Principal.class
-nodos/Nodo.class
-tests/Seleccion.class
 notacionPolacaInversa/NotacionPolaca.class
-stack/LinkedStack.class
 stack/ArrayStack.class
+queue/CircularQueue.class
+queue/LinkedQueue.class
+nodos/Nodo.class
+maquinaExpendedora/mainMaquinaE.class
+tests/Seleccion.class
+stack/LinkedStack.class

@@ -25,10 +25,7 @@ public class Principal {
       
       int resultado = polaca.resolverPolaca(ecuacion);
       System.out.println("Resultado: " + resultado);
-      
-      
-      
-      
+
       ArrayStack pila = new ArrayStack(ecuacion.length());
       for(int i=0;i<ecuacion.length();i++){
           caracter=ecuacion.substring(i, i+1);
