@@ -10,10 +10,9 @@ import nodos.*;
  */
 public class LinkedQueue {
     private Nodo front, rear;
-    private int size, a;
+    private int size;
     
     public void enqueue(Object value){
-        size++;
         Nodo n=new Nodo();
         n.setValor(value);
         if(isEmpty()){
@@ -23,6 +22,7 @@ public class LinkedQueue {
             rear.setEnlace(n);
             rear=n;
         }
+        size++;
     }
     
     public Object dequeue(){
@@ -54,11 +54,11 @@ public class LinkedQueue {
     }
    //size
    public int size(){
-      return a;
+      return size;
    }
    //isEmpty
    public boolean isEmpty(){
-      return a == 0;
+      return size == 0;
    }
 }
 

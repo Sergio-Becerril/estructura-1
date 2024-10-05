@@ -7,10 +7,10 @@ package maquinaExpendedora;
 import java.util.Scanner;
 import queue.CircularQueue;
 
-/** @author sergiob.t.
+/**
+ * @author sergiob.t.
  */
 public class mainMaquinaE {
-
     public static void main(String[] args) {
         Scanner read = new Scanner(System.in);
         String opcionMenu = null, numeroValidacion = null, opcionProductoA = null,
