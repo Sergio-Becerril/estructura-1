@@ -68,32 +68,68 @@ public class LinkedList {
                     actual = siguiente;
                     siguiente = siguiente.getEnlace();
                 }
-                value=siguiente.getValor();
+                value = siguiente.getValor();
                 actual.setEnlace(null);
-            } else if (index > 0 && index < size){
+            } else if (index > 0 && index < size) {
                 Nodo actual = a;
-                Nodo siguiente =a.getEnlace();
+                Nodo siguiente = a.getEnlace();
                 for (int i = size - 1; i > index; i--) {
-                actual = siguiente;
+                    actual = siguiente;
+                    siguiente = siguiente.getEnlace();
+                }
+                value = siguiente.getValor();
                 siguiente = siguiente.getEnlace();
-            }
-            value=siguiente.getValor();
-            siguiente=siguiente.getEnlace();
-            actual.setEnlace(siguiente);
-            } else if(size==index){
-                value=a.getValor();
-                a=a.getEnlace();
+                actual.setEnlace(siguiente);
+            } else if (size == index) {
+                value = a.getValor();
+                a = a.getEnlace();
             }
         }
         return value;
     }
 
+    public Object get(int index) {
+        Object value = null;
+        if (index >= 0 && index < size) {
+            Nodo actual = a;
+            int i = 0;
+            while (i < index) {
+                actual = actual.getEnlace();
+            }
+            value = actual.getValor();
+        }
+        return value;
+    }
+
+    public Object set(int index, Object value) {
+        Object returnValue = null;
+        if (index >= 0 && index < size) {
+            Nodo actual = a;
+            int i = 0;
+            while (i < index) {
+                actual = actual.getEnlace();
+            }
+            returnValue = actual.getValor();
+            actual.setValor(value);
+        }
+        return returnValue;
+    }
+
+    //toString
+    public String toString() {
+        String s = "";
+        Nodo temp = a;
+        while (null != temp) {
+            s += "<" + temp.getValor();
+            temp = temp.getEnlace();
+        }
+        return s;
+    }
     //size
     public int size() {
         return size;
     }
     //isEmpty
-
     public boolean isEmpty() {
         return size == 0;
     }

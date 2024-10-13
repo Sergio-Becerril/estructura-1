@@ -5,29 +5,37 @@
 package bank;
 
 import java.util.Scanner;
-import queue.LinkedQueue;
+import queue.*;
 
-/**
- *
+/*
  * @author sergiob.t.
  */
 public class mainBank {
-
     public static void main(String[] args) {
-        String opcionMenu = null, opcionCaja = null, opcionCola = null;
         Scanner read = new Scanner(System.in);
+        String opcionMenu = null, opcionCaja = null, opcionCola = null,
+                mensaje = null;
         double retiro = 0;
-        int personas = 0;
-        
+        int personas = 0, ingreso = 0, opcionIngresoMoneda = 0, cuentaTipo = 0;
+        String menuDenominacion = "Denominacion a ingresar:\n"
+                + "9: 1000\n"
+                + "8: 500\n"
+                + "7: 200\n"
+                + "6: 100\n"
+                + "5: 20\n"
+                + "4: 10\n"
+                + "3: 5\n"
+                + "2: 2\n"
+                + "1: 1\n"
+                + "0: 0.5\n"
+                + "-1: Dejar de ingresar dinero";
         //Cajas
         int[] cajas = {0, 0, 0, 0};
         //Colas
-        LinkedQueue colaCon = new LinkedQueue(), colaSin = new LinkedQueue();
+        NumericPriorityQueue colaCon = new NumericPriorityQueue();
+        LinkedQueue colaSin = new LinkedQueue();
 
-        for (int index = 0; index < 10; index++) {
-            colaCon.enqueue(1);
-        }
-        for (int index = 0; index < 10; index++) {
+        for (int index = 0; index < 3; index++) {
             colaSin.enqueue(1);
         }
         //Monedas
@@ -46,27 +54,30 @@ public class mainBank {
         LinkedQueue[] caja2D = {m05c2, m1c2, m2c2, m5c2, m10c2, m20c2, m100c2, m200c2, m500c2, m1000c2};
         LinkedQueue[] caja3D = {m05c3, m1c3, m2c3, m5c3, m10c3, m20c3, m100c3, m200c3, m500c3, m1000c3};
         LinkedQueue[] caja4D = {m05c4, m1c4, m2c4, m5c4, m10c4, m20c4, m100c4, m200c4, m500c4, m1000c4};
+        LinkedQueue[] cajaE = caja1D;
+
         //Abastecimiento inicial
         for (int index = 0; index < 10; index++) {
-            for (int i = 0; i < caja1D[index].size(); i++) {
+            for (int i = 0; i < 10; i++) {
                 caja1D[index].enqueue(1);
             }
         }
         for (int index = 0; index < 10; index++) {
-            for (int i = 0; i < caja2D[index].size(); i++) {
+            for (int i = 0; i < 10; i++) {
                 caja2D[index].enqueue(1);
             }
         }
         for (int index = 0; index < 10; index++) {
-            for (int i = 0; i < caja3D[index].size(); i++) {
+            for (int i = 0; i < 10; i++) {
                 caja3D[index].enqueue(1);
             }
         }
         for (int index = 0; index < 10; index++) {
-            for (int i = 0; i < caja4D[index].size(); i++) {
+            for (int i = 0; i < 10; i++) {
                 caja4D[index].enqueue(1);
             }
         }
+
         //Inicio del menu
         do {
             System.out.println("Elige una opcion\n"
@@ -84,10 +95,19 @@ public class mainBank {
                             + "2: Agregar persona sin cuenta");
                     opcionCola = read.nextLine();
                     if (opcionCola.equals("1")) {
-                        System.out.println("Cantidad de personas:");
-                        personas = read.nextInt();
-                        for (int index = 0; index < personas; index++) {
-                            colaCon.enqueue(1);
+                        System.out.println("Tipo de cuenta: "
+                                + "\n1: 042"
+                                + "\n2: 022"
+                                + "\n3: 011");
+                        cuentaTipo = read.nextInt();
+                        if (cuentaTipo > 0 && cuentaTipo < 4) {
+                            System.out.println("Cantidad de personas:");
+                            personas = read.nextInt();
+                            for (int index = 0; index < personas; index++) {
+                                colaCon.enqueue(cuentaTipo, cuentaTipo);
+                            }
+                        } else {
+                            System.out.println("Error: Elige una opcion valida");
                         }
                     } else if (opcionCola.equals("2")) {
                         System.out.println("Cantidad de personas:");
@@ -100,68 +120,292 @@ public class mainBank {
                     }
                     break;
                 case "2"://Ingreso a caja
-                    if(!colaCon.isEmpty()&&cajas[0]==0){
-                        cajas[0]=1;
-                        colaCon.dequeue();
-                    }
-                    if(!colaCon.isEmpty()&&cajas[1]==0){
-                        cajas[1]=1;
-                        colaCon.dequeue();
-                    }
-                    if(!colaCon.isEmpty()&&cajas[2]==0){
-                        cajas[2]=1;
-                        colaCon.dequeue();
-                    }
-                    if(!colaCon.isEmpty()&&cajas[3]==0){
-                        cajas[3]=1;
-                        colaCon.dequeue();
-                    }
+                    do {
+                        if (!colaCon.isEmpty()) {
+                            if (cajas[0] <1) {
+                                cajas[0] = 1;
+                                colaCon.dequeue();
+                            } else if (cajas[1] <1) {
+                                cajas[1] = 1;
+                                colaCon.dequeue();
+                            } else if (cajas[2] <1) {
+                                cajas[2] = 1;
+                                colaCon.dequeue();
+                            } else if (cajas[3] <1) {
+                                cajas[3] = 1;
+                                colaCon.dequeue();
+                            }
+                        }
+                        if (!colaSin.isEmpty()) {
+                            if (cajas[0] <1) {
+                                cajas[0] = 1;
+                                colaSin.dequeue();
+                            } else if (cajas[1] <1) {
+                                cajas[1] = 1;
+                                colaSin.dequeue();
+                            } else if (cajas[2] <1) {
+                                cajas[2] = 1;
+                                colaSin.dequeue();
+                            } else if (cajas[3] <1) {
+                                cajas[3] = 1;
+                                colaSin.dequeue();
+                            }
+                        }
+                        if (colaCon.isEmpty() && colaSin.isEmpty()) {
+                            if (cajas[0] <1) {
+                                cajas[0] = -1;
+                            }
+                            if (cajas[1] <1) {
+                                cajas[1] = -1;
+                            }
+                            if (cajas[2] <1) {
+                                cajas[2] = -1;
+                            }
+                            if (cajas[3] <1) {
+                                cajas[3] = -1;
+                            }
+                        }
+                    } while (cajas[0] == 0 || cajas[1] == 0 || cajas[2] == 0 || cajas[3] == 0);
+                    System.out.println("Cajas:");
+                    mensaje = (cajas[0] == 1) ? "Ocupado" : "Vacio";
+                    System.out.println("Caja 1: " + mensaje);
+                    mensaje = (cajas[1] == 1) ? "Ocupado" : "Vacio";
+                    System.out.println("Caja 2: " + mensaje);
+                    mensaje = (cajas[2] == 1) ? "Ocupado" : "Vacio";
+                    System.out.println("Caja 3: " + mensaje);
+                    mensaje = (cajas[3] == 1) ? "Ocupado" : "Vacio";
+                    System.out.println("Caja 4: " + mensaje);
                     break;
                 case "3"://Accion en caja
                     System.out.println("Elige una opcion\n"
                             + "1: caja 1\n"
                             + "2: caja 2\n"
                             + "3: caja 3\n"
-                            + "4: caja 4");
+                            + "4: caja 4\n"
+                            + "Otro: Ninguna");
                     opcionCaja = read.nextLine();
                     if (opcionCaja.equals("1")) {
-                        LinkedQueue[] cajaE = caja1D;
+                        if (cajas[0] == 1) {
+                            cajaE = caja1D;
+                            System.out.println("Elige una opcion\n"
+                                    + "1: Depositar\n"
+                                    + "2: Retirar");
+                            opcionCaja = read.nextLine();
+                            if (opcionCaja.equals("1")) {
+                                System.out.println(menuDenominacion);
+                                opcionIngresoMoneda = read.nextInt();
+                                if (opcionIngresoMoneda > -1 && opcionIngresoMoneda < 10) {
+                                    System.out.println("Cantidad de monedas:");
+                                    ingreso = read.nextInt();
+                                    agregar(cajaE, opcionIngresoMoneda, ingreso);
+                                    cajas[0] = 0;
+                                } else {
+                                    System.out.println("Regresando");
+                                }
+                            } else if (opcionCaja.equals("2")) {
+                                System.out.println("Cantidad a retirar:");
+                                retiro = read.nextDouble();
+                                retiro(cajaE, retiro);
+                                cajas[0] = 0;
+                            } else {
+                                System.out.println("Error: Opcion no valida");
+                            }
+                        } else if (cajas[0] < 1) {
+                            System.out.println("Error: La caja esta vacia");
+                        }
                     } else if (opcionCaja.equals("2")) {
-                        LinkedQueue[] cajaE = caja2D;
-                    }else if (opcionCaja.equals("3")) {
-                        LinkedQueue[] cajaE = caja3D;
-                    }else if (opcionCaja.equals("4")) {
-                        LinkedQueue[] cajaE = caja4D;
-                    }
-                    System.out.println("Elige una opcion\n"
-                            + "1: Depositar\n"
-                            + "2: Retirar");
-                    opcionCaja = read.nextLine();
-                    if (opcionCaja.equals("1")) {
-                        System.out.println("Cantidad a depositar:");
-                        retiro = read.nextDouble();
-                        
-                    } else if (opcionCaja.equals("2")) {
-                        System.out.println("Cantidad a retirar:");
-                        retiro = read.nextDouble();
-                        //retiro(cajaE, retiro);
+                        if (cajas[1] == 1) {
+                            cajaE = caja2D;
+                            System.out.println("Elige una opcion\n"
+                                    + "1: Depositar\n"
+                                    + "2: Retirar");
+                            opcionCaja = read.nextLine();
+                            if (opcionCaja.equals("1")) {
+                                System.out.println(menuDenominacion);
+                                opcionIngresoMoneda = read.nextInt();
+                                if (opcionIngresoMoneda > -1 && opcionIngresoMoneda < 10) {
+                                    System.out.println("Cantidad de monedas:");
+                                    ingreso = read.nextInt();
+                                    agregar(cajaE, opcionIngresoMoneda, ingreso);
+                                    cajas[1] = 0;
+                                } else {
+                                    System.out.println("Regresando");
+                                }
+                            } else if (opcionCaja.equals("2")) {
+                                System.out.println("Cantidad a retirar:");
+                                retiro = read.nextDouble();
+                                retiro(cajaE, retiro);
+                                cajas[1] = 0;
+                            } else {
+                                System.out.println("Error: Opcion no valida");
+                            }
+                        } else if (cajas[1] < 1) {
+                            System.out.println("Error: La caja esta vacia");
+                        }
+                    } else if (opcionCaja.equals("3")) {
+                        if (cajas[2] == 1) {
+                            cajaE = caja3D;
+                            System.out.println("Elige una opcion\n"
+                                    + "1: Depositar\n"
+                                    + "2: Retirar");
+                            opcionCaja = read.nextLine();
+                            if (opcionCaja.equals("1")) {
+                                System.out.println(menuDenominacion);
+                                opcionIngresoMoneda = read.nextInt();
+                                if (opcionIngresoMoneda > -1 && opcionIngresoMoneda < 10) {
+                                    System.out.println("Cantidad de monedas:");
+                                    ingreso = read.nextInt();
+                                    agregar(cajaE, opcionIngresoMoneda, ingreso);
+                                    cajas[2] = 0;
+                                } else {
+                                    System.out.println("Regresando");
+                                }
+                            } else if (opcionCaja.equals("2")) {
+                                System.out.println("Cantidad a retirar:");
+                                retiro = read.nextDouble();
+                                retiro(cajaE, retiro);
+                                cajas[2] = 0;
+                            } else {
+                                System.out.println("Error: Opcion no valida");
+                            }
+                        } else if (cajas[2] < 1) {
+                            System.out.println("Error: La caja esta vacia");
+                        }
+                    } else if (opcionCaja.equals("4")) {
+                        if (cajas[3] == 1) {
+                            cajaE = caja4D;
+                            System.out.println("Elige una opcion\n"
+                                    + "1: Depositar\n"
+                                    + "2: Retirar");
+                            opcionCaja = read.nextLine();
+                            if (opcionCaja.equals("1")) {
+                                System.out.println(menuDenominacion);
+                                opcionIngresoMoneda = read.nextInt();
+                                if (opcionIngresoMoneda > -1 && opcionIngresoMoneda < 10) {
+                                    System.out.println("Cantidad de monedas:");
+                                    ingreso = read.nextInt();
+                                    agregar(cajaE, opcionIngresoMoneda, ingreso);
+                                    cajas[3] = 0;
+                                } else {
+                                    System.out.println("Regresando");
+                                }
+                            } else if (opcionCaja.equals("2")) {
+                                System.out.println("Cantidad a retirar:");
+                                retiro = read.nextDouble();
+                                retiro(cajaE, retiro);
+                                cajas[3] = 0;
+                            } else {
+                                System.out.println("Error: Opcion no valida");
+                            }
+                        } else if (cajas[3] < 1) {
+                            System.out.println("Error: La caja esta vacia");
+                        }
                     } else {
-                        System.out.println("Error: Elige una opcion valida");
+                        System.out.println("Regresando");
                     }
                     break;
                 case "4"://Ingreso o retiro de dinero
                     System.out.println("Elige una opcion\n"
-                            + "1: Ingresar dinero\n"
-                            + "2: Retirar dinero");
+                            + "1: caja 1\n"
+                            + "2: caja 2\n"
+                            + "3: caja 3\n"
+                            + "4: caja 4\n"
+                            + "Otro: Ninguna");
                     opcionCaja = read.nextLine();
                     if (opcionCaja.equals("1")) {
-
+                        cajaE = caja1D;
+                        System.out.println("Elige una opcion\n"
+                                + "1: Ingresar\n"
+                                + "2: Vaciar");
+                        opcionCaja = read.nextLine();
+                        if (opcionCaja.equals("1")) {
+                            System.out.println(menuDenominacion);
+                            opcionIngresoMoneda = read.nextInt();
+                            if (opcionIngresoMoneda > -1 && opcionIngresoMoneda < 10) {
+                                System.out.println("Cantidad de monedas:");
+                                ingreso = read.nextInt();
+                                agregar(cajaE, opcionIngresoMoneda, ingreso);
+                            } else {
+                                System.out.println("Regresando");
+                            }
+                        } else if (opcionCaja.equals("2")) {
+                            System.out.println("Cantidad a retirar:");
+                            retiro = read.nextDouble();
+                            retiro(cajaE, retiro);
+                        } else {
+                            System.out.println("Error: Opcion no valida");
+                        }
                     } else if (opcionCaja.equals("2")) {
-                        System.out.println("Cantidad a retirar:");
-                        retiro = read.nextDouble();
-
+                        cajaE = caja2D;
+                        System.out.println("Elige una opcion\n"
+                                + "1: Depositar\n"
+                                + "2: Retirar");
+                        opcionCaja = read.nextLine();
+                        if (opcionCaja.equals("1")) {
+                            System.out.println(menuDenominacion);
+                            opcionIngresoMoneda = read.nextInt();
+                            if (opcionIngresoMoneda > -1 && opcionIngresoMoneda < 10) {
+                                System.out.println("Cantidad de monedas:");
+                                ingreso = read.nextInt();
+                                agregar(cajaE, opcionIngresoMoneda, ingreso);
+                            } else {
+                                System.out.println("Regresando");
+                            }
+                        } else if (opcionCaja.equals("2")) {
+                            System.out.println("Cantidad a retirar:");
+                            retiro = read.nextDouble();
+                            retiro(cajaE, retiro);
+                        } else {
+                            System.out.println("Error: Opcion no valida");
+                        }
+                    } else if (opcionCaja.equals("3")) {
+                        cajaE = caja3D;
+                        System.out.println("Elige una opcion\n"
+                                + "1: Depositar\n"
+                                + "2: Retirar");
+                        opcionCaja = read.nextLine();
+                        if (opcionCaja.equals("1")) {
+                            System.out.println(menuDenominacion);
+                            opcionIngresoMoneda = read.nextInt();
+                            if (opcionIngresoMoneda > -1 && opcionIngresoMoneda < 10) {
+                                System.out.println("Cantidad de monedas:");
+                                ingreso = read.nextInt();
+                                agregar(cajaE, opcionIngresoMoneda, ingreso);
+                            } else {
+                                System.out.println("Regresando");
+                            }
+                        } else if (opcionCaja.equals("2")) {
+                            System.out.println("Cantidad a retirar:");
+                            retiro = read.nextDouble();
+                            retiro(cajaE, retiro);
+                        } else {
+                            System.out.println("Error: Opcion no valida");
+                        }
+                    } else if (opcionCaja.equals("4")) {
+                        cajaE = caja4D;
+                        System.out.println("Elige una opcion\n"
+                                + "1: Depositar\n"
+                                + "2: Retirar");
+                        opcionCaja = read.nextLine();
+                        if (opcionCaja.equals("1")) {
+                            System.out.println(menuDenominacion);
+                            opcionIngresoMoneda = read.nextInt();
+                            if (opcionIngresoMoneda > -1 && opcionIngresoMoneda < 10) {
+                                System.out.println("Cantidad de monedas:");
+                                ingreso = read.nextInt();
+                                agregar(cajaE, opcionIngresoMoneda, ingreso);
+                            } else {
+                                System.out.println("Regresando");
+                            }
+                        } else if (opcionCaja.equals("2")) {
+                            System.out.println("Cantidad a retirar:");
+                            retiro = read.nextDouble();
+                            retiro(cajaE, retiro);
+                        } else {
+                            System.out.println("Error: Opcion no valida");
+                        }
                     } else {
-                        System.out.println("Error: Elige una opcion valida");
+                        System.out.println("Regresando");
                     }
                     break;
                 case "5"://Imprimir estado
@@ -172,17 +416,21 @@ public class mainBank {
                     System.out.println(colaSin.toString());
                     //Cajas
                     System.out.println("Cajas:");
-                    System.out.println(cajas[0]);
-                    System.out.println(cajas[1]);
-                    System.out.println(cajas[2]);
-                    System.out.println(cajas[3]);
+                    mensaje = (cajas[0] == 1) ? "Ocupado" : "Vacio";
+                    System.out.println("Caja 1: " + mensaje);
+                    mensaje = (cajas[1] == 1) ? "Ocupado" : "Vacio";
+                    System.out.println("Caja 2: " + mensaje);
+                    mensaje = (cajas[2] == 1) ? "Ocupado" : "Vacio";
+                    System.out.println("Caja 3: " + mensaje);
+                    mensaje = (cajas[3] == 1) ? "Ocupado" : "Vacio";
+                    System.out.println("Caja 4: " + mensaje);
                     //Cajas Dinero
                     System.out.println("Dinero:");
-                    System.out.println("Caja 1: "+dineroCaja(caja1D));
-                    System.out.println("Caja 2: "+dineroCaja(caja2D));
-                    System.out.println("Caja 3: "+dineroCaja(caja3D));                    
-                    System.out.println("Caja 4: "+dineroCaja(caja4D));
-                    
+                    System.out.println("Caja 1: " + dineroCaja(caja1D));
+                    System.out.println("Caja 2: " + dineroCaja(caja2D));
+                    System.out.println("Caja 3: " + dineroCaja(caja3D));
+                    System.out.println("Caja 4: " + dineroCaja(caja4D));
+
                     break;
                 case "6":
                     System.out.println("Saliendo");
@@ -206,7 +454,7 @@ public class mainBank {
     //Dinero en caja
     public static double dineroCaja(LinkedQueue[] caja) {
         double total = 0;
-        total = ((caja[0].size() * 0.5)
+        total = (((caja[0].size() * 0.5)
                 + (caja[1].size() * 1)
                 + (caja[2].size() * 2)
                 + (caja[3].size() * 5)
@@ -215,13 +463,14 @@ public class mainBank {
                 + (caja[6].size() * 100)
                 + (caja[7].size() * 200)
                 + (caja[8].size() * 500)
-                + (caja[9].size() * 1000));
+                + (caja[9].size() * 1000)));
         return total;
     }
 
     //Retiro
     public static double retiro(LinkedQueue[] caja, double retiro) {
-        double totalCaja = dineroCaja(caja), retiro1 = totalCaja - retiro;
+        double totalCaja = dineroCaja(caja);
+        double retiro1 = totalCaja - retiro;
         int m05 = 0, m1 = 0, m2 = 0, m5 = 0, m10 = 0, m20 = 0, m100 = 0, m200 = 0, m500 = 0, m1000 = 0;
         if ((retiro1) >= 0) {
             if (retiro1 == 0) {
@@ -231,43 +480,43 @@ public class mainBank {
                     }
                 }
             } else if (retiro1 != 0) {
-                System.out.println("retirando:");
+                System.out.println("retirando: " + retiro);
                 do {
-                    if (retiro1 % 1000 == 0 && !caja[9].isEmpty()) {
+                    if (retiro % 1000 == 0 && !caja[9].isEmpty()) {
                         m1000++;
-                        retiro1 -= 1000;
-                    } else if (retiro1 % 500 == 0 && !caja[8].isEmpty()) {
+                        retiro -= 1000;
+                    } else if (retiro % 500 == 0 && !caja[8].isEmpty()) {
                         m500++;
-                        retiro1 -= 500;
-                    } else if (retiro1 % 200 == 0 && !caja[7].isEmpty()) {
+                        retiro -= 500;
+                    } else if (retiro % 200 == 0 && !caja[7].isEmpty()) {
                         m200++;
-                        retiro1 -= 200;
-                    } else if (retiro1 % 100 == 0 && !caja[6].isEmpty()) {
+                        retiro -= 200;
+                    } else if (retiro % 100 == 0 && !caja[6].isEmpty()) {
                         m100++;
-                        retiro1 -= 100;
-                    } else if (retiro1 % 20 == 0 && !caja[5].isEmpty()) {
+                        retiro -= 100;
+                    } else if (retiro % 20 == 0 && !caja[5].isEmpty()) {
                         m20++;
-                        retiro1 -= 20;
-                    } else if (retiro1 % 10 == 0 && !caja[4].isEmpty()) {
+                        retiro -= 20;
+                    } else if (retiro % 10 == 0 && !caja[4].isEmpty()) {
                         m10++;
-                        retiro1 -= 10;
-                    } else if (retiro1 % 5 == 0 && !caja[3].isEmpty()) {
+                        retiro -= 10;
+                    } else if (retiro % 5 == 0 && !caja[3].isEmpty()) {
                         m5++;
-                        retiro1 -= 5;
-                    } else if (retiro1 % 2 == 0 && !caja[2].isEmpty()) {
+                        retiro -= 5;
+                    } else if (retiro % 2 == 0 && !caja[2].isEmpty()) {
                         m2++;
-                        retiro1 -= 2;
-                    } else if (retiro1 % 1 == 0 && !caja[1].isEmpty()) {
+                        retiro -= 2;
+                    } else if (retiro % 1 == 0 && !caja[1].isEmpty()) {
                         m1++;
-                        retiro1 -= 1;
-                    } else if (retiro1 % 0.5 == 0 && !caja[0].isEmpty()) {
+                        retiro -= 1;
+                    } else if (retiro % 0.5 == 0 && !caja[0].isEmpty()) {
                         m05++;
-                        retiro1 -= 0.5;
+                        retiro -= 0.5;
                     } else {
                         System.out.println("Error: Dinero insuficiente para el retiro\n");
                         retiro1 = -1;
                     }
-                } while (retiro1 != 0 && retiro1 != -1);
+                } while (retiro != 0 && retiro != -1);
                 if (retiro == 0) {
                     for (int index = 0; index < m05; index++) {
                         caja[0].dequeue();
@@ -301,7 +550,7 @@ public class mainBank {
                     }
                 }
             }
-        } else if ((totalCaja - retiro) < 0) {
+        } else if ((retiro1) < 0) {
             System.out.println("Error: Dinero insuficiente para el retiro\n");
             retiro1 = -1;
         }

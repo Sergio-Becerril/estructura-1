@@ -4,20 +4,21 @@
  */
 package queue;
 
-import nodos.*;
+import nodos.DateNodo;
+import java.util.Date;
 
 /**
  *
  * @author sergiob.t.
  */
-public class NumericPriorityQueue {
+public class PriorityDateQueue {
 
-    private NumericNodo front;
-    private NumericNodo rear;
+    private DateNodo front;
+    private DateNodo rear;
     private Object[] queue;
     private int size;
 
-    public NumericPriorityQueue() {
+    public PriorityDateQueue() {
         front = null;
         rear = null;
         size = 0;
@@ -31,7 +32,7 @@ public class NumericPriorityQueue {
         return size == 0;
     }
 
-    public void enqueue1(NumericNodo nodo) {
+    public void enqueue1(DateNodo nodo) {
         if (isEmpty()) {
             front = nodo;
             rear = nodo;
@@ -41,25 +42,25 @@ public class NumericPriorityQueue {
         }
     }
 
-    public void enqueue(Object value, Integer prioridad) {
-        NumericNodo n = new NumericNodo();
+    public void enqueue(Object value, Date fecha) {
+        DateNodo n = new DateNodo();
         n.setValor(value);
-        n.setPrioridad(prioridad);
+        n.setFecha(fecha);
         if (isEmpty()) {
             front = n;
             rear = n;
         } else {
-            if (prioridad >= rear.getPrioridad()) {
+            if (fecha.compareTo(rear.getFecha())>=0) {
                 enqueue1(n);
             } else {
-                NumericNodo actual = front;
-                NumericNodo siguiente = front.getEnlace();
-                if (prioridad < front.getPrioridad()) {
+                DateNodo actual = front;
+                DateNodo siguiente = front.getEnlace();
+                if (fecha.compareTo(front.getFecha())==-1) {
                     n.setEnlace(front);
                     front = n;
                 } else {
                     while (null != siguiente) {
-                        if (prioridad < siguiente.getPrioridad()) {
+                        if (fecha.compareTo(siguiente.getFecha())==-1) {
                             break;
                         }
                         actual = siguiente;
@@ -85,7 +86,7 @@ public class NumericPriorityQueue {
 
     public String toString() {
         String s = "";
-        NumericNodo t = front;
+        DateNodo t = front;
         while (null != t) {
             s += t.getValor() + "<";
             t = t.getEnlace();
