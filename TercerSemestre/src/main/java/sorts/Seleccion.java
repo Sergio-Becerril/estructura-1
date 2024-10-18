@@ -2,13 +2,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package tests;
+package sorts;
 
 /**
  *
  * @author sergiob.t.
  */
 public class Seleccion {
+
     public static void MetodoSeleccion(int[] numero) {
         System.out.println("Seleccion");
         Array.Asign(numero);
@@ -28,5 +29,5 @@ public class Seleccion {
             numero[i] = menor;
             numero[index] = guia;
         }
-}
+    }
 }
