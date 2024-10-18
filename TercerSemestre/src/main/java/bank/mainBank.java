@@ -11,6 +11,7 @@ import queue.*;
  * @author sergiob.t.
  */
 public class mainBank {
+
     public static void main(String[] args) {
         Scanner read = new Scanner(System.in);
         String opcionMenu = null, opcionCaja = null, opcionCola = null,
@@ -34,6 +35,8 @@ public class mainBank {
         //Colas
         NumericPriorityQueue colaCon = new NumericPriorityQueue();
         LinkedQueue colaSin = new LinkedQueue();
+        //v1
+        //LinkedQueue colaCon = new LinkedQueue();
 
         for (int index = 0; index < 3; index++) {
             colaSin.enqueue(1);
@@ -90,6 +93,30 @@ public class mainBank {
             opcionMenu = read.nextLine();
             switch (opcionMenu) {
                 case "1"://Cola
+                    //v1
+                    /*
+                    System.out.println("Elige una opcion\n"
+                            + "1: Agregar persona con cuenta\n"
+                            + "2: Agregar persona sin cuenta");
+                    opcionCola = read.nextLine();
+                    if (opcionCola.equals("1")) {
+                        System.out.println("Cantidad de personas:");
+                        personas = read.nextInt();
+                        for (int index = 0; index < personas; index++) {
+                            colaCon.enqueue(1);
+                        }
+                    else if (opcionCola.equals("2")) {
+                        System.out.println("Cantidad de personas:");
+                        personas = read.nextInt();
+                        for (int index = 0; index < personas; index++) {
+                            colaSin.enqueue(1);
+                        }
+                    } else {
+                        System.out.println("Error: Elige una opcion valida");
+                    }
+                    */
+                    
+                    //v2
                     System.out.println("Elige una opcion\n"
                             + "1: Agregar persona con cuenta\n"
                             + "2: Agregar persona sin cuenta");
@@ -122,46 +149,76 @@ public class mainBank {
                 case "2"://Ingreso a caja
                     do {
                         if (!colaCon.isEmpty()) {
-                            if (cajas[0] <1) {
+                            if (cajas[0] < 1) {
                                 cajas[0] = 1;
                                 colaCon.dequeue();
-                            } else if (cajas[1] <1) {
+                            } else if (cajas[1] < 1) {
                                 cajas[1] = 1;
                                 colaCon.dequeue();
-                            } else if (cajas[2] <1) {
+                            } else if (cajas[2] < 1) {
                                 cajas[2] = 1;
                                 colaCon.dequeue();
-                            } else if (cajas[3] <1) {
+                            } else if (cajas[3] < 1) {
                                 cajas[3] = 1;
                                 colaCon.dequeue();
                             }
                         }
                         if (!colaSin.isEmpty()) {
-                            if (cajas[0] <1) {
+                            if (cajas[0] < 1) {
                                 cajas[0] = 1;
                                 colaSin.dequeue();
-                            } else if (cajas[1] <1) {
+                            } else if (cajas[1] < 1) {
                                 cajas[1] = 1;
                                 colaSin.dequeue();
-                            } else if (cajas[2] <1) {
+                            } else if (cajas[2] < 1) {
                                 cajas[2] = 1;
                                 colaSin.dequeue();
-                            } else if (cajas[3] <1) {
+                            } else if (cajas[3] < 1) {
+                                cajas[3] = 1;
+                                colaSin.dequeue();
+                            }
+                        }
+                        if (!colaCon.isEmpty()) {
+                            if (cajas[0] < 1) {
+                                cajas[0] = 1;
+                                colaCon.dequeue();
+                            } else if (cajas[1] < 1) {
+                                cajas[1] = 1;
+                                colaCon.dequeue();
+                            } else if (cajas[2] < 1) {
+                                cajas[2] = 1;
+                                colaCon.dequeue();
+                            } else if (cajas[3] < 1) {
+                                cajas[3] = 1;
+                                colaCon.dequeue();
+                            }
+                        }
+                        if (!colaSin.isEmpty()) {
+                            if (cajas[0] < 1) {
+                                cajas[0] = 1;
+                                colaSin.dequeue();
+                            } else if (cajas[1] < 1) {
+                                cajas[1] = 1;
+                                colaSin.dequeue();
+                            } else if (cajas[2] < 1) {
+                                cajas[2] = 1;
+                                colaSin.dequeue();
+                            } else if (cajas[3] < 1) {
                                 cajas[3] = 1;
                                 colaSin.dequeue();
                             }
                         }
                         if (colaCon.isEmpty() && colaSin.isEmpty()) {
-                            if (cajas[0] <1) {
+                            if (cajas[0] < 1) {
                                 cajas[0] = -1;
                             }
-                            if (cajas[1] <1) {
+                            if (cajas[1] < 1) {
                                 cajas[1] = -1;
                             }
-                            if (cajas[2] <1) {
+                            if (cajas[2] < 1) {
                                 cajas[2] = -1;
                             }
-                            if (cajas[3] <1) {
+                            if (cajas[3] < 1) {
                                 cajas[3] = -1;
                             }
                         }
