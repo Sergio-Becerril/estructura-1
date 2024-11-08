@@ -13,6 +13,7 @@ sorts/Burbuja.class
 lists/ArrayList.class
 stack/LinkedStack.class
 nodos/BooleanNodo.class
+Examen/SegundoParcial.class
 bank/mainBank.class
 nodos/DoubleNodo.class
 notacionPolacaInversa/NotacionPolaca.class
