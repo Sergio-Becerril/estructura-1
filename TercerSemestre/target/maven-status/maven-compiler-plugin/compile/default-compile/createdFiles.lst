@@ -19,6 +19,7 @@ nodos/BooleanNodo.class
 Examen/SegundoParcial.class
 bank/mainBank.class
 nodos/DoubleNodo.class
+Examen/ExamenFinal.class
 notacionPolacaInversa/NotacionPolaca.class
 queue/NumericPriorityQueue.class
 stack/ArrayStack.class
