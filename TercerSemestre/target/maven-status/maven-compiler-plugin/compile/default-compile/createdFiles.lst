@@ -1,10 +1,13 @@
 trees/BTree.class
 com/mycompany/tercersemestre/Principal.class
 sorts/BusquedaBinaria.class
+ProyectoSolitario/Cartas.class
 sorts/Shellsort.class
 sorts/Array.class
 nodos/DateNodo.class
+ProyectoSolitario/Validaciones.class
 sorts/Quicksort.class
+ProyectoSolitario/Principal.class
 queue/LinkedQueue.class
 sorts/Insercion.class
 nodos/Nodo.class

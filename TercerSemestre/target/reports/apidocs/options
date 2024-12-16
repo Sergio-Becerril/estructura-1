@@ -1,0 +1,22 @@
+-encoding
+'UTF-8'
+-protected
+-source
+'22'
+-sourcepath
+'/Users/sergiob.t./Desktop/estructura-datos/TercerSemestre/src/main/java'
+-author
+-bottom
+'Copyright &#169; 2024. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'/Users/sergiob.t./Desktop/estructura-datos/TercerSemestre/target/reports/apidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'TercerSemestre 1.0-SNAPSHOT API'
+-use
+-version
+-windowtitle
+'TercerSemestre 1.0-SNAPSHOT API'
